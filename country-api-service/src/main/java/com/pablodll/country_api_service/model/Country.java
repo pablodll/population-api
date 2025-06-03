@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Persistence class for countries database table
+ */
 @Entity
 @Table(name = "countries")
 @Data
@@ -12,8 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Country {
 
+    /**
+     * Unique country code
+     * Follows ISO 3166-1 alpha-3 (e.g. "ESP", "JPN")
+     */
     @Id
-    @Column(name = "code")
+    @Column(name = "code", length = 3)
     private String code;
 
     @Column(name = "name", nullable = false)
