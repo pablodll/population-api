@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Basic CRUD methods to manage countries in the DB.
  */
 @Repository
-public interface CountryRepository extends JpaRepository<Country, Long> {
+public interface CountryRepository extends JpaRepository<Country, String> {
 
     /// Basic CRUD methods implemented by default by JpaRepository
 
