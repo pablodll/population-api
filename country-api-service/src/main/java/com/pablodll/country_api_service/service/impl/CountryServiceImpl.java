@@ -28,10 +28,9 @@ public class CountryServiceImpl implements CountryService {
         this.countryMapper = countryMapper;
     }
 
-    // CREATE / UPDATE LOGIC
-
+    /* ----- CREATE / UPDATE LOGIC ----- */
     @Override
-    public CountryRequestDTO save(CountryRequestDTO countryRequestDTO) {
+    public CountryResponseDTO save(CountryRequestDTO countryRequestDTO) {
         Optional<Country> existingCountry = countryRepository.findById(countryRequestDTO.getCode());
 
         Country newCountry;
@@ -47,19 +46,20 @@ public class CountryServiceImpl implements CountryService {
 
         Country savedCountry = countryRepository.save(newCountry);
 
-        return countryMapper.entityToRequest(savedCountry);
+        return countryMapper.entityToResponse(savedCountry);
     }
 
     @Override
-    public List<CountryRequestDTO> save(List<CountryRequestDTO> countryRequestDTO_list) {
+    public List<CountryResponseDTO> save(List<CountryRequestDTO> countryRequestDTO_list) {
         return List.of();
     }
+    /* --------------------------------- */
 
-    // READ LOGIC
-
+    /* ----- READ LOGIC ----- */
     @Override
     public List<CountryResponseDTO> getAll() {
         List<Country> result = countryRepository.findAll();
         return countryMapper.entityListToReponseList(result);
     }
+    /* ---------------------- */
 }
