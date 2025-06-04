@@ -11,31 +11,33 @@ import java.util.List;
  */
 public interface CountryService {
 
-    // CREATE / UPDATE
+    /* ----- CREATE / UPDATE ----- */
     /**
      * Saves or updates a country into the database.
      * <p>
      * If a country with the same code already exists, updates the fields {@code name} and {@code population}. If not, creates a new country.
      *
      * @param countryRequestDTO contains the country data to be saved or updated
-     * @return {@link CountryRequestDTO} representing the saved country.
+     * @return {@link CountryResponseDTO} representing the saved country.
      */
-    CountryRequestDTO save(CountryRequestDTO countryRequestDTO);
+    CountryResponseDTO save(CountryRequestDTO countryRequestDTO);
 
     /**
      * TODO
      * @param countryRequestDTO_list
      * @return
      */
-    List<CountryRequestDTO> save(List<CountryRequestDTO> countryRequestDTO_list);
+    List<CountryResponseDTO> save(List<CountryRequestDTO> countryRequestDTO_list);
+    /* --------------------------------- */
 
-    // READ
+    /* ----- READ ----- */
     /**
      * Gets all countries currently saved in the database
      *
      * @return {@link List} of {@link CountryResponseDTO} representing every retrieved country.
      */
     List<CountryResponseDTO> getAll();
+    /* ---------------------- */
 
 
 }

@@ -6,7 +6,6 @@ import com.pablodll.country_api_service.mapper.CountryMapper;
 import com.pablodll.country_api_service.model.Country;
 import com.pablodll.country_api_service.repository.CountryRepository;
 import com.pablodll.country_api_service.service.impl.CountryServiceImpl;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,8 +54,8 @@ public class CountryServiceImplTest {
         country1 = new Country("TS1", "Test1", 1000L);
         country2 = new Country("TS2", "Test2", 2000L);
 
-        country1_responseDTO = new CountryResponseDTO("Test1", 1000L);
-        country2_responseDTO = new CountryResponseDTO("Test2", 2000L);
+        country1_responseDTO = new CountryResponseDTO("TS1", "Test1", 1000L);
+        country2_responseDTO = new CountryResponseDTO("TS2", "Test2", 2000L);
 
         country1_requestDTO = new CountryRequestDTO("TS1", "Test1", 1000L);
         country2_requestDTO = new CountryRequestDTO("TS2", "Test2", 2000L);
@@ -67,21 +66,21 @@ public class CountryServiceImplTest {
         countryRequestDTOList = Arrays.asList(country1_requestDTO, country2_requestDTO);
     }
 
-    /// Create and Update tests
+    /* ----- Create and Update tests ----- */
     @Test
     public void save_notExisting_successTests() {
         when(countryRepository.findById(country1_requestDTO.getCode())).thenReturn(Optional.empty());
 
         when(countryMapper.requestToEntity(country1_requestDTO)).thenReturn(country1);
         when(countryRepository.save(country1)).thenReturn(country1);
-        when(countryMapper.entityToRequest(country1)).thenReturn(country1_requestDTO);
+        when(countryMapper.entityToResponse(country1)).thenReturn(country1_responseDTO);
 
-        CountryRequestDTO result = countryService.save(country1_requestDTO);
+        CountryResponseDTO result = countryService.save(country1_requestDTO);
 
         // Assert values
-        assertEquals(country1_requestDTO.getCode(), result.getCode());
-        assertEquals(country1_requestDTO.getName(), result.getName());
-        assertEquals(country1_requestDTO.getPopulation(), result.getPopulation());
+        assertEquals(country1_responseDTO.getCode(), result.getCode());
+        assertEquals(country1_responseDTO.getName(), result.getName());
+        assertEquals(country1_responseDTO.getPopulation(), result.getPopulation());
 
         // Verify calls
         verify(countryRepository, times(1)).findById(country1.getCode());
@@ -93,14 +92,14 @@ public class CountryServiceImplTest {
         when(countryRepository.findById(country1_requestDTO.getCode())).thenReturn(Optional.of(country1));
 
         when(countryRepository.save(country1)).thenReturn(country1);
-        when(countryMapper.entityToRequest(country1)).thenReturn(country1_requestDTO);
+        when(countryMapper.entityToResponse(country1)).thenReturn(country1_responseDTO);
 
-        CountryRequestDTO result = countryService.save(country1_requestDTO);
+        CountryResponseDTO result = countryService.save(country1_requestDTO);
 
         // Assert values
-        assertEquals(country1_requestDTO.getCode(), result.getCode());
-        assertEquals(country1_requestDTO.getName(), result.getName());
-        assertEquals(country1_requestDTO.getPopulation(), result.getPopulation());
+        assertEquals(country1_responseDTO.getCode(), result.getCode());
+        assertEquals(country1_responseDTO.getName(), result.getName());
+        assertEquals(country1_responseDTO.getPopulation(), result.getPopulation());
 
         // Verify calls
         verify(countryRepository, times(1)).findById(country1.getCode());
@@ -114,8 +113,9 @@ public class CountryServiceImplTest {
 
         assertThrows(RuntimeException.class, () -> countryService.save(country1_requestDTO));
     }
+    /* ----------------------------------- */
 
-    /// Read tests
+    /* ----- Read tests ----- */
     @Test
     public void getAll_successTest() {
         when(countryRepository.findAll()).thenReturn(countryList);
@@ -135,5 +135,6 @@ public class CountryServiceImplTest {
         verify(countryRepository, times(1)).findAll();
         verify(countryMapper, times(1)).entityListToReponseList(countryList);
     }
+    /* ---------------------- */
 
 }

@@ -1,0 +1,46 @@
+package com.pablodll.country_api_service.controller;
+
+import com.pablodll.country_api_service.dto.CountryRequestDTO;
+import com.pablodll.country_api_service.dto.CountryResponseDTO;
+import com.pablodll.country_api_service.service.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(" /api/v1/data/country")
+public class CountryRestController {
+
+    private CountryService countryService;
+
+    @Autowired
+    public CountryRestController(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    // GET
+    /**
+     * Retrieves all countries stored in the system.
+     *
+     * @return list of countries as response DTOs
+     */
+    @GetMapping
+    public List<CountryResponseDTO> getAll() {
+        return countryService.getAll();
+    }
+
+    // POST
+    /**
+     * Stores a new country or updates it if it already exists.
+     *
+     * @param countryRequestDTO the country data to be saved
+     * @return the created or updated country as a response DTO
+     */
+    @PostMapping
+    public ResponseEntity<CountryResponseDTO> save(@RequestBody CountryRequestDTO countryRequestDTO) {
+        return new ResponseEntity<>(countryService.save(countryRequestDTO), HttpStatus.CREATED);
+    }
+}

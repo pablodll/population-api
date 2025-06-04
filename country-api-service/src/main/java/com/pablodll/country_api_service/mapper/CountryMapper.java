@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CountryMapper {
 
-    // REQUEST MAPPING LOGIC
+    /* ------ REQUEST MAPPING LOGIC ----- */
     /**
      * Converts a {@link CountryRequestDTO} to a {@link Country} entity.
      *
@@ -47,8 +47,26 @@ public interface CountryMapper {
      * @return the list of mapped CountryRequestDTOs
      */
     List<CountryRequestDTO> entityListToRequestList(List<Country> entity_list);
+    /* ----------------------------------- */
 
-    // RESPONSE MAPPING LOGIC
+
+    /* ------ RESPONSE MAPPING LOGIC ----- */
+    /**
+     * Converts a {@link CountryResponseDTO} to a {@link Country} entity.
+     *
+     * @param responseDTO the DTO to convert
+     * @return the mapped Country entity
+     */
+    Country responseToEntity(CountryResponseDTO responseDTO);
+
+    /**
+     * Converts a {@link Country} entity to a {@link CountryResponseDTO}.
+     *
+     * @param entity the entity to convert
+     * @return the mapped CountryResponseDTO
+     */
+    CountryResponseDTO entityToResponse(Country entity);
+
     /**
      * Converts a list of {@link CountryResponseDTO} to a list of {@link Country} entities.
      * <p>This method can be useful for testing or reverse transformations, though typically
@@ -66,4 +84,5 @@ public interface CountryMapper {
      * @return the list of mapped CountryResponseDTOs
      */
     List<CountryResponseDTO> entityListToReponseList(List<Country> entity_list);
+    /* ----------------------------------- */
 }
