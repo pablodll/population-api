@@ -29,4 +29,12 @@ public class Country {
     @Column(name = "population", nullable = false)
     private Long population;
 
+    @Override
+    public String toString() {
+        return "Country{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", population=" + population +
+                '}';
+    }
 }
