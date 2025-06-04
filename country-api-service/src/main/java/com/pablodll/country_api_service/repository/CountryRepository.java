@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, String> {
 
-    /// Basic CRUD methods implemented by default by JpaRepository
+    // Basic CRUD methods implemented by default by JpaRepository
 
 }
