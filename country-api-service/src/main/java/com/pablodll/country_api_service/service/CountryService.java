@@ -3,6 +3,7 @@ package com.pablodll.country_api_service.service;
 import com.pablodll.country_api_service.dto.CountryRequestDTO;
 import com.pablodll.country_api_service.dto.CountryResponseDTO;
 import com.pablodll.country_api_service.model.Country;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface CountryService {
      *
      * @return {@link List} of {@link CountryResponseDTO} representing every retrieved country.
      */
-    List<CountryResponseDTO> getAll();
+    Page<CountryResponseDTO> getAll(int page, int size);
     /* ---------------------- */
 
 

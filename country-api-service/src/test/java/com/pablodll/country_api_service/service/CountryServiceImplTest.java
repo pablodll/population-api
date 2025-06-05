@@ -12,6 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -118,21 +121,26 @@ public class CountryServiceImplTest {
     /* ----- Read tests ----- */
     @Test
     public void getAll_successTest() {
-        when(countryRepository.findAll()).thenReturn(countryList);
+        Page<Country> countryPage = new PageImpl<>(countryList);
+        Page<CountryResponseDTO> responseDTOPage = new PageImpl<>(countryResponseDTOList);
+
+        when(countryRepository.findAll(any(Pageable.class))).thenReturn(countryPage);
         when(countryMapper.entityListToReponseList(countryList)).thenReturn(countryResponseDTOList);
 
-        List<CountryResponseDTO> result = countryService.getAll();
+        int page = 0;
+        int size = 10;
+        Page<CountryResponseDTO> result = countryService.getAll(page, size);
 
         // Assert returned list size
-        assertEquals(countryResponseDTOList.size(), result.size());
+        assertEquals(responseDTOPage.getContent().size(), result.getContent().size());
 
-        // Assert if returned list has same names as expected list
-        Set<String> expectedNames = countryResponseDTOList.stream().map(CountryResponseDTO::getName).collect(Collectors.toSet());
-        Set<String> resultNames =  result.stream().map(CountryResponseDTO::getName).collect(Collectors.toSet());
+        // Assert if returned list has same names as expected list (ignore order of data)
+        Set<String> expectedNames = responseDTOPage.getContent().stream().map(CountryResponseDTO::getName).collect(Collectors.toSet());
+        Set<String> resultNames =  result.getContent().stream().map(CountryResponseDTO::getName).collect(Collectors.toSet());
         assertEquals(expectedNames, resultNames);
 
         // Verify calls
-        verify(countryRepository, times(1)).findAll();
+        verify(countryRepository, times(1)).findAll(any(Pageable.class));
         verify(countryMapper, times(1)).entityListToReponseList(countryList);
     }
     /* ---------------------- */
