@@ -3,18 +3,20 @@ package com.pablodll.country_api_service.controller;
 import com.pablodll.country_api_service.dto.CountryRequestDTO;
 import com.pablodll.country_api_service.dto.CountryResponseDTO;
 import com.pablodll.country_api_service.service.CountryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(" /api/v1/data/country")
+@RequestMapping("/api/v1/data/country")
 public class CountryRestController {
 
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @Autowired
     public CountryRestController(CountryService countryService) {
@@ -27,7 +29,7 @@ public class CountryRestController {
      *
      * @return list of countries as response DTOs
      */
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CountryResponseDTO> getAll() {
         return countryService.getAll();
     }
@@ -39,8 +41,8 @@ public class CountryRestController {
      * @param countryRequestDTO the country data to be saved
      * @return the created or updated country as a response DTO
      */
-    @PostMapping
-    public ResponseEntity<CountryResponseDTO> save(@RequestBody CountryRequestDTO countryRequestDTO) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CountryResponseDTO> save(@RequestBody @Valid CountryRequestDTO countryRequestDTO) {
         return new ResponseEntity<>(countryService.save(countryRequestDTO), HttpStatus.CREATED);
     }
 }

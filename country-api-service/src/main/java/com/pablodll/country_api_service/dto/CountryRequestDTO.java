@@ -10,14 +10,14 @@ import jakarta.validation.constraints.Size;
  */
 public class CountryRequestDTO {
 
-    @NotBlank
-    @Size(min = 3, max = 3)
+    @NotBlank(message = "value must not be empty")
+    @Size(min = 3, max = 3, message = "length must be 3")
     private String code;
 
-    @NotBlank
+    @NotBlank(message = "value must not be empty")
     private String name;
 
-    @NotNull
+    @NotNull(message = "value must not be null")
     @Min(0)
     private Long population;
 
