@@ -1,5 +1,6 @@
 package com.pablodll.country_api_service.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,13 +11,16 @@ import jakarta.validation.constraints.Size;
  */
 public class CountryRequestDTO {
 
+    @Schema(example = "ESP", description = "ISO 3166-1 alpha-3 country code")
     @NotBlank(message = "value must not be empty")
     @Size(min = 3, max = 3, message = "length must be 3")
     private String code;
 
+    @Schema(example = "Spain", description = "Country name")
     @NotBlank(message = "value must not be empty")
     private String name;
 
+    @Schema(example = "47000000", description = "Country population")
     @NotNull(message = "value must not be null")
     @Min(0)
     private Long population;
