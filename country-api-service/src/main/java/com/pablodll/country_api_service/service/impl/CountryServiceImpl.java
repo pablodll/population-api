@@ -20,8 +20,8 @@ import java.util.Optional;
 @Service
 public class CountryServiceImpl implements CountryService {
 
-    private CountryRepository countryRepository;
-    private CountryMapper countryMapper;
+    private final CountryRepository countryRepository;
+    private final CountryMapper countryMapper;
 
     @Autowired
     public CountryServiceImpl(CountryRepository countryRepository, CountryMapper countryMapper) {

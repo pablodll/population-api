@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/data/country")
 public class CountryRestController {
 
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @Autowired
     public CountryRestController(CountryService countryService) {
