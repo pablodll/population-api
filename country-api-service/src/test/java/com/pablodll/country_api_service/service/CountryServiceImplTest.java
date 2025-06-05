@@ -129,7 +129,7 @@ public class CountryServiceImplTest {
 
         int page = 0;
         int size = 10;
-        Page<CountryResponseDTO> result = countryService.getAll(page, size);
+        Page<CountryResponseDTO> result = countryService.getAllPaged(page, size);
 
         // Assert returned list size
         assertEquals(responseDTOPage.getContent().size(), result.getContent().size());

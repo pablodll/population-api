@@ -3,7 +3,6 @@ package com.pablodll.country_api_service.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pablodll.country_api_service.dto.CountryRequestDTO;
 import com.pablodll.country_api_service.dto.CountryResponseDTO;
-import com.pablodll.country_api_service.model.Country;
 import com.pablodll.country_api_service.service.CountryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,7 +55,7 @@ public class CountryRestControllerIntegrationTest {
     public void getAll_successTest() throws Exception {
         int page = 0;
         int size = 10;
-        when(countryService.getAll(page, size)).thenReturn(responseDTOPage);
+        when(countryService.getAllPaged(page, size)).thenReturn(responseDTOPage);
 
         // Perform Get request and check returned size and first returned element fields
         mockMvc.perform(get(URL)
@@ -78,7 +77,7 @@ public class CountryRestControllerIntegrationTest {
     public void getAll_emptyList_successTest() throws Exception {
         int page = 0;
         int size = 10;
-        when(countryService.getAll(page, size)).thenReturn(new PageImpl<>(Collections.emptyList()));
+        when(countryService.getAllPaged(page, size)).thenReturn(new PageImpl<>(Collections.emptyList()));
 
         // Perform Get request and check if returned list is empty
         mockMvc.perform(get(URL)

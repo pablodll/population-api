@@ -63,7 +63,7 @@ public class CountryServiceImpl implements CountryService {
 
     /* ----- READ LOGIC ----- */
     @Override
-    public Page<CountryResponseDTO> getAll(int page, int size) {
+    public Page<CountryResponseDTO> getAllPaged(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Country> result = countryRepository.findAll(pageable);
 

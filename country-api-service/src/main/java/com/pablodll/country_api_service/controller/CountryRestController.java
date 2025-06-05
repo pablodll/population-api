@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/data/country")
 public class CountryRestController {
@@ -27,16 +25,16 @@ public class CountryRestController {
 
     // GET
     /**
-     * Retrieves all countries stored in the system.
+     * Retrieves a paginated list of countries currently saved in the database.
      *
-     * @return list of countries as response DTOs
+     * @return list of countries as a {@link PagedResponseDTO}
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PagedResponseDTO<CountryResponseDTO>> getAll(
+    public ResponseEntity<PagedResponseDTO<CountryResponseDTO>> getAllPaged(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        Page<CountryResponseDTO> resultPage = countryService.getAll(page, size);
+        Page<CountryResponseDTO> resultPage = countryService.getAllPaged(page, size);
 
         PagedResponseDTO<CountryResponseDTO> response = new PagedResponseDTO<>(
                 resultPage.getContent(),
@@ -54,7 +52,7 @@ public class CountryRestController {
      * Stores a new country or updates it if it already exists.
      *
      * @param countryRequestDTO the country data to be saved
-     * @return the created or updated country as a response DTO
+     * @return the created or updated country as a {@link CountryResponseDTO}
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CountryResponseDTO> save(@RequestBody @Valid CountryRequestDTO countryRequestDTO) {
