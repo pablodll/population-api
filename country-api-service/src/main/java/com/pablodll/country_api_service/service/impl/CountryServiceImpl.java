@@ -6,6 +6,7 @@ import com.pablodll.country_api_service.mapper.CountryMapper;
 import com.pablodll.country_api_service.model.Country;
 import com.pablodll.country_api_service.repository.CountryRepository;
 import com.pablodll.country_api_service.service.CountryService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     /* ----- CREATE / UPDATE LOGIC ----- */
+    @Transactional
     @Override
     public CountryResponseDTO save(CountryRequestDTO countryRequestDTO) {
         Optional<Country> existingCountry = countryRepository.findById(countryRequestDTO.getCode());
@@ -49,6 +51,7 @@ public class CountryServiceImpl implements CountryService {
         return countryMapper.entityToResponse(savedCountry);
     }
 
+    @Transactional
     @Override
     public List<CountryResponseDTO> save(List<CountryRequestDTO> countryRequestDTO_list) {
         return List.of();
