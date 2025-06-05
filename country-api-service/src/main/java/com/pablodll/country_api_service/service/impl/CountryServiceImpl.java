@@ -8,6 +8,9 @@ import com.pablodll.country_api_service.repository.CountryRepository;
 import com.pablodll.country_api_service.service.CountryService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,9 +63,11 @@ public class CountryServiceImpl implements CountryService {
 
     /* ----- READ LOGIC ----- */
     @Override
-    public List<CountryResponseDTO> getAll() {
-        List<Country> result = countryRepository.findAll();
-        return countryMapper.entityListToReponseList(result);
+    public Page<CountryResponseDTO> getAllPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Country> result = countryRepository.findAll(pageable);
+
+        return result.map(countryMapper::entityToResponse);
     }
     /* ---------------------- */
 }

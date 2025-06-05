@@ -1,12 +1,19 @@
 package com.pablodll.country_api_service.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * DTO to encapsulate country related responses
  */
 public class CountryResponseDTO {
 
+    @Schema(example = "ESP", description = "ISO 3166-1 alpha-3 country code")
     private String code;
+
+    @Schema(example = "Spain", description = "Country name")
     private String name;
+
+    @Schema(example = "47000000", description = "Country population")
     private Long population;
 
     public CountryResponseDTO() {}

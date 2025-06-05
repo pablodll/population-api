@@ -3,6 +3,7 @@ package com.pablodll.country_api_service.service;
 import com.pablodll.country_api_service.dto.CountryRequestDTO;
 import com.pablodll.country_api_service.dto.CountryResponseDTO;
 import com.pablodll.country_api_service.model.Country;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -32,11 +33,13 @@ public interface CountryService {
 
     /* ----- READ ----- */
     /**
-     * Gets all countries currently saved in the database
+     * Retrieves a paginated list of countries currently saved in the database
      *
-     * @return {@link List} of {@link CountryResponseDTO} representing every retrieved country.
+     * @param page index of the page to retrieve
+     * @param size number of items per page
+     * @return {@link Page} of {@link CountryResponseDTO} containing the requested page of countries.
      */
-    List<CountryResponseDTO> getAll();
+    Page<CountryResponseDTO> getAllPaged(int page, int size);
     /* ---------------------- */
 
 
