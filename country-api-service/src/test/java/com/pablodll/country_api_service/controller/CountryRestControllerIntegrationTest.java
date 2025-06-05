@@ -52,7 +52,7 @@ public class CountryRestControllerIntegrationTest {
 
     /* ----- GET METHOD TESTS ----- */
     @Test
-    public void getAll_successTest() throws Exception {
+    public void getAllPaged_successTest() throws Exception {
         int page = 0;
         int size = 10;
         when(countryService.getAllPaged(page, size)).thenReturn(responseDTOPage);
@@ -74,7 +74,7 @@ public class CountryRestControllerIntegrationTest {
     }
 
     @Test
-    public void getAll_emptyList_successTest() throws Exception {
+    public void getAllPaged_emptyList_successTest() throws Exception {
         int page = 0;
         int size = 10;
         when(countryService.getAllPaged(page, size)).thenReturn(new PageImpl<>(Collections.emptyList()));

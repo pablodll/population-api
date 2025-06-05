@@ -16,10 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
@@ -125,7 +122,13 @@ public class CountryServiceImplTest {
         Page<CountryResponseDTO> responseDTOPage = new PageImpl<>(countryResponseDTOList);
 
         when(countryRepository.findAll(any(Pageable.class))).thenReturn(countryPage);
-        when(countryMapper.entityListToReponseList(countryList)).thenReturn(countryResponseDTOList);
+
+        // Iterate every element to work with .map() method
+        when(countryMapper.entityToResponse(any(Country.class)))
+                .thenAnswer(invocation -> {
+                    Country c = invocation.getArgument(0);
+                    return new CountryResponseDTO(c.getCode(), c.getName(), c.getPopulation());
+                });
 
         int page = 0;
         int size = 10;
@@ -141,7 +144,21 @@ public class CountryServiceImplTest {
 
         // Verify calls
         verify(countryRepository, times(1)).findAll(any(Pageable.class));
-        verify(countryMapper, times(1)).entityListToReponseList(countryList);
+        verify(countryMapper, times(responseDTOPage.getContent().size())).entityToResponse(any(Country.class));
+    }
+
+    @Test
+    public void getAllPaged_emptyPageTest() {
+        Page<Country> emptyPage = new PageImpl<>(Collections.emptyList());
+        when(countryRepository.findAll(any(Pageable.class))).thenReturn(emptyPage);
+
+        int page = 10000;
+        int size = 10;
+
+        Page<CountryResponseDTO> result = countryService.getAllPaged(page, size);
+
+        assertTrue(result.isEmpty());
+        verify(countryRepository, times(1)).findAll(any(Pageable.class));
     }
     /* ---------------------- */
 
