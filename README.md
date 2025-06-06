@@ -1,6 +1,7 @@
 # Population API - Country API Service & Ingestion Service
 
-Prueba técnica para desarrollar una sencilla aplicación backend de almacenamiento y consulta de datos poblacionales a nivel mundial
+Prueba técnica para desarrollar una sencilla aplicación backend de almacenamiento y consulta de datos poblacionales a nivel mundial.
+Desarrollada con _Java_ y _Spring Boot_, estructurando cada servicio con una arquitectura por capas.
 
 Este repositorio contiene dos microservicios relacionados para gestionar datos de países y su población:
 
