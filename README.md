@@ -1,11 +1,11 @@
 # Population API - Country API Service & Ingestion Service
 
-Prueba técnica para desarrollar una sencilla aplicación backend de almacenamiento y consulta de datos poblacionales a nivel mundial 
+Prueba técnica para desarrollar una sencilla aplicación backend de almacenamiento y consulta de datos poblacionales a nivel mundial
 
 Este repositorio contiene dos microservicios relacionados para gestionar datos de países y su población:
 
-- **country-api-service**: API REST para CRUD y consulta de países.
-- **ingestion-service**: Servicio encargado de ingerir datos externos de países desde la API pública [restcountries.com](https://restcountries.com) y almacenarlos en `country-api-service`.
+- **country-api-service**: API REST para CRUD y consulta de países. Encargado de exponer los endpoints y manegar la persistencia de los datos en una BD SQL (MySQL)
+- **ingestion-service**: Servicio encargado de ingerir datos externos de países desde la API pública [restcountries.com](https://restcountries.com) y almacenarlos a través de `country-api-service`.
 
 ---
 
@@ -71,3 +71,8 @@ Para levantar todos los servicios (MySQL, country-api-service e ingestion-servic
   ```bash
   docker-compose up --build
   ```
+  - Levanta tres contenedores en orden:
+    - 1º: Contenedor mysql-db (Base de datos)
+    - 2º: Contenedor country-api (API)
+    - 3º: Contenedor country-ingestion (Servicio de ingesta) [Una vez completada la ingesta, termina el proceso]
+    
