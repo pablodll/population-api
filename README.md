@@ -5,7 +5,7 @@ Desarrollada con _Java_ y _Spring Boot_, estructurando cada servicio con una arq
 
 Este repositorio contiene dos microservicios relacionados para gestionar datos de países y su población:
 
-- **country-api-service**: API REST para CRUD y consulta de países. Encargado de exponer los endpoints y manegar la persistencia de los datos en una BD SQL (MySQL)
+- **country-api-service**: API REST para CRUD y consulta de países. Encargado de exponer los endpoints y manejar la persistencia de los datos en una BD SQL (MySQL)
 - **ingestion-service**: Servicio encargado de ingerir datos externos de países desde la API pública [restcountries.com](https://restcountries.com) y almacenarlos a través de `country-api-service`.
 
 ---
