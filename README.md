@@ -19,11 +19,9 @@ Este repositorio contiene dos microservicios relacionados para gestionar datos d
 
 ## URLs importantes
 
-- **API base URL** (para el servicio `country-api`):  
-  `http://localhost:8080/api/v1/data/country`
+- **API base URL** (para el servicio `country-api`): http://localhost:8080/api/v1/data/country
 
-- **Swagger UI** (documentación automática de la API):  
-  `http://localhost:8080/swagger-ui/index.html`
+- **Swagger UI** (documentación automática de la API): http://localhost:8080/swagger-ui/index.html
 
 ---
 
