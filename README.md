@@ -10,18 +10,18 @@ Este repositorio contiene dos microservicios relacionados para gestionar datos d
 
 ---
 
-## Requisitos
-
-- Docker (https://docs.docker.com/get-docker/)
-- Docker Compose (https://docs.docker.com/compose/install/)
-
----
-
 ## URLs importantes
 
 - **API base URL** (para el servicio `country-api`): http://localhost:8080/api/v1/data/country
 
 - **Swagger UI** (documentación automática de la API): http://localhost:8080/swagger-ui/index.html
+
+---
+
+## Requisitos
+
+- Docker (https://docs.docker.com/get-docker/)
+- Docker Compose (https://docs.docker.com/compose/install/)
 
 ---
 
@@ -35,43 +35,15 @@ Las configuraciones principales están definidas en los `application.properties`
 
 Para levantar todos los servicios (MySQL, country-api-service e ingestion-service) junto con su red interna:
 
-### Paso 1: Compilar los servicios antes de levantar con Docker Compose
-
-  Para que el `docker-compose.yml` funcione correctamente, debes generar primero los archivos `.jar` de los servicios `country-api-service` y `ingestion-service`. Esto genera el artefacto `app.jar` de cada servicio que los contenedores usarán para arrancar.
-
-- #### Opción A: Compilar localmente con Maven instalado
-
-  Desde la raíz del proyecto, ejecuta:
-  
-  ```bash
-  mvn clean package -f country-api-service/pom.xml
-  mvn clean package -f ingestion-service/pom.xml
-  ```
-
-- #### Opción B: Compilar localmente sin Maven instalado
-
-  Desde la raíz del proyecto, ejecuta:
-  
-  - Linux:
-    ```bash
-    ./mvnw clean package -f country-api-service/pom.xml
-    ./mvnw clean package -f ingestion-service/pom.xml
-    ```
-  - Windows:
-    ```bash
-    mvnw.cmd clean package -f country-api-service\pom.xml
-    mvnw.cmd clean package -f ingestion-service\pom.xml
-    ```
-  
-### Paso 2: Levantar los servicios con Docker Compose
-
   Desde la raíz del proyecto, ejecuta:
     
   ```bash
   docker-compose up --build
   ```
+  - Compila los ejecutables y genera las imágenes de country-api-service e ingestion-service
   - Levanta tres contenedores en orden:
     - 1º: Contenedor mysql-db (Base de datos)
     - 2º: Contenedor country-api (API)
     - 3º: Contenedor country-ingestion (Servicio de ingesta) [Una vez completada la ingesta, termina el proceso]
     
+---
