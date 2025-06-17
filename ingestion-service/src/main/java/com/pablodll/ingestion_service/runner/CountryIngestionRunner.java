@@ -18,7 +18,7 @@ public class CountryIngestionRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         System.out.println("INGESTION PROCESS STARTED");
-        ingestionService.ingestCountries();
+        ingestionService.ingestCountriesHTTP();
         System.out.println("INGESTION PROCESS ENDED");
         System.exit(0);
     }

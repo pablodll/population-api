@@ -45,6 +45,7 @@ services:
     container_name: country-ingestion
     environment:
       COUNTRY_API_BASE_URL:  http://country-api:8080/api/v1/data/country
+      REST_COUNTRIES_URL: https://restcountries.com/v3.1/all?fields=name,population,cca3
     depends_on:
       country-api:
         condition: service_healthy
